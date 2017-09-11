@@ -18,7 +18,7 @@
           width: 10,
           height: 60,
           
-          draw:function(){
+          draw: function(){
             context.fillStyle = this.color;
             context.fillRect(this.x, this.y, this.width, this.height);
           }
@@ -31,7 +31,7 @@
           width: 10,
           height: 60,
 
-          draw:function(){
+          draw: function(){
             context.fillStyle = this.color;
             context.fillRect(this.x, this.y, this.width, this.height);
           }
@@ -42,12 +42,19 @@
           x: 200,
           y: 300,
           radius: 5,
+          angle: 0.1,
 
-          draw:function(){
+          update: function(){
+            this.x += Math.cos(this.angle) * 10;
+            this.y += Math.sin(this.angle) * 10;
+          },
+
+          draw: function(){
             context.fillStyle = this.color;
             context.arc(this.x, this.y, this.radius, 0, 2 * Math.PI, false);
             context.fill();
           }
+
         }
                         
         var canvas = $("<canvas width='" + CANVAS_WIDTH + 
@@ -71,7 +78,9 @@
             leftPaddle.y -= 5;
           }
         
-          leftPaddle.y = leftPaddle.y.clamp(5, CANVAS_HEIGHT - leftPaddle.height - 5);                  
+          leftPaddle.y = leftPaddle.y.clamp(5, CANVAS_HEIGHT - leftPaddle.height - 5);  
+
+          ball.update();                
         }
                 
         function draw() {
