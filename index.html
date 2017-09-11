@@ -19,15 +19,43 @@
           height: 60,
           
           draw:function(){
-            canvas.fillStyle = this.color;
-            canvas.fillRect(this.x, this.y, this.width, this.height);
+            context.fillStyle = this.color;
+            context.fillRect(this.x, this.y, this.width, this.height);
+          }
+        }
+
+        var rightPaddle = {
+          color: "#fff",
+          x: 785,
+          y: 270,
+          width: 10,
+          height: 60,
+
+          draw:function(){
+            context.fillStyle = this.color;
+            context.fillRect(this.x, this.y, this.width, this.height);
+          }
+        }
+
+        var ball = {
+          color: "#fff",
+          x: 200,
+          y: 300,
+          radius: 5,
+
+          draw:function(){
+            context.fillStyle = this.color;
+            context.arc(this.x, this.y, this.radius, 0, 2 * Math.PI, false);
+            context.fill();
           }
         }
                         
-        var canvasElement = $("<canvas width='" + CANVAS_WIDTH + 
+        var canvas = $("<canvas width='" + CANVAS_WIDTH + 
           "' height='" + CANVAS_HEIGHT + "'></canvas");
-        var canvas = canvasElement.get(0).getContext("2d");
-        canvasElement.appendTo('body');
+        
+        var context = canvas.get(0).getContext('2d');   
+
+        canvas.appendTo('body');
         
         setInterval(function() {
           update();
@@ -47,10 +75,16 @@
         }
                 
         function draw() {
-          canvas.fillStyle = "#000";
-          canvas.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT)
+          context.beginPath();
+
+          context.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+
+          context.fillStyle = "#000";
+          context.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT)
 
           leftPaddle.draw();
+          ball.draw();
+          rightPaddle.draw();
         }               
       //]]>
     </script>
