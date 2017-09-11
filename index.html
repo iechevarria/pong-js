@@ -35,6 +35,7 @@
             context.fillStyle = this.color;
             context.fillRect(this.x, this.y, this.width, this.height);
           }
+
         }
 
         var ball = {
@@ -42,11 +43,21 @@
           x: 200,
           y: 300,
           radius: 5,
-          angle: 0.1,
+          angle: 5,
 
           update: function(){
             this.x += Math.cos(this.angle) * 10;
             this.y += Math.sin(this.angle) * 10;
+
+            if (this.y - this.radius < 0) {
+              this.angle = - this.angle;
+              this.y = this.radius + 0.1;
+            }
+            if (this.y + this.radius > CANVAS_HEIGHT) {
+              this.angle = - this.angle;
+              this.y - this.radius - 0.1;
+            }
+
           },
 
           draw: function(){
