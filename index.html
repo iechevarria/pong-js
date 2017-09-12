@@ -43,7 +43,7 @@
           x: 200,
           y: 300,
           radius: 5,
-          angle: -0.1,
+          angle: 2*3.14159,
 
           update: function(){
             this.x += Math.cos(this.angle) * 10;
@@ -59,21 +59,20 @@
             }
             if (this.x - this.radius < leftPaddle.x + leftPaddle.width  &&
                 this.x - this.radius > leftPaddle.x &&
-                this.y + this.radius >= leftPaddle.y - leftPaddle.height &&
+                this.y + this.radius >= leftPaddle.y &&
                 this.y - this.radius <= leftPaddle.y + leftPaddle.height) 
             {
-              this.angle = 3.1415 - this.angle;
-              this.x = leftPaddle.x + this.radius + 0.1;
+              this.angle = 3.14159 - this.angle - 0.16 + Math.floor( Math.random() * 0.32 );
+              this.x = leftPaddle.x + this.radius + 1;
             }
 
-
-            if (this.x + this.radius > rightPaddle.x - rightPaddle.width / 2 &&
+            if (this.x + this.radius > rightPaddle.x - rightPaddle.width &&
                 this.x + this.radius < rightPaddle.x &&
-                this.y + this.radius >= rightPaddle.y  &&
+                this.y + this.radius >= rightPaddle.y &&
                 this.y - this.radius <= rightPaddle.y + rightPaddle.height)
             {
-              this.angle = 3.1415 - this.angle;
-              this.x = rightPaddle.x - this.radius - 10;
+              this.angle = 3.14159 - this.angle - 0.16 + Math.floor( Math.random() * 0.32 );
+              this.x = rightPaddle.x - this.radius - 1;
             }
 
 
