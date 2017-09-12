@@ -34,6 +34,20 @@
           draw: function(){
             context.fillStyle = this.color;
             context.fillRect(this.x, this.y, this.width, this.height);
+          },
+
+          update: function(){
+            if (ball.y + 10 > this.y + this.height / 2 &&
+                ball.x > CANVAS_WIDTH / 5) {
+              this.y += 4;
+              }
+            if (ball.y - 10 < this.y + this.height / 2 &&
+                ball.x > CANVAS_WIDTH / 5) {
+              this.y -= 4; 
+              }
+
+            this.y = this.y.clamp(5, CANVAS_HEIGHT - this.height - 5);  
+
           }
 
         }
@@ -66,16 +80,14 @@
               this.x = leftPaddle.x + this.radius + 1;
             }
 
-            if (this.x + this.radius > rightPaddle.x - rightPaddle.width &&
-                this.x + this.radius < rightPaddle.x &&
+            if (this.x + this.radius > rightPaddle.x &&
+                this.x + this.radius < rightPaddle.x + rightPaddle.width &&
                 this.y + this.radius >= rightPaddle.y &&
                 this.y - this.radius <= rightPaddle.y + rightPaddle.height)
             {
               this.angle = 3.14159 - this.angle - 0.16 + Math.floor( Math.random() * 0.32 );
               this.x = rightPaddle.x - this.radius - 1;
             }
-
-
           },
 
           draw: function(){
@@ -108,8 +120,8 @@
           }
         
           leftPaddle.y = leftPaddle.y.clamp(5, CANVAS_HEIGHT - leftPaddle.height - 5);  
-
-          ball.update();                
+          rightPaddle.update();  
+          ball.update();   
         }
                 
         function draw() {
@@ -121,8 +133,8 @@
           context.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT)
 
           leftPaddle.draw();
-          ball.draw();
           rightPaddle.draw();
+          ball.draw();
         }               
       //]]>
     </script>
