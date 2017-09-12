@@ -84,7 +84,7 @@ var ball = {
                 this.angle = - this.angle;
                 this.y - this.radius - 0.1;
             }
-            if (this.x - this.radius < leftPaddle.x  &&
+            if (this.x - this.radius < leftPaddle.x &&
                 this.x - this.radius > leftPaddle.x - leftPaddle.width &&
                 this.y + this.radius >= leftPaddle.y &&
                 this.y - this.radius <= leftPaddle.y + leftPaddle.height) {
@@ -100,11 +100,11 @@ var ball = {
                 this.angle = 3.14159 - this.angle - 0.16 + (Math.random() * 0.32);
                 this.x = rightPaddle.x - this.radius - 1;
             }
-            if (this.x > CANVAS_WIDTH + 10) {
+            if (this.x > CANVAS_WIDTH + 50) {
                 scoreboard.addPointLeft();
                 this.reset();
             }
-            if (this.x < -10) {
+            if (this.x < -50) {
                 scoreboard.addPointRight();
                 this.reset();
             }
@@ -160,10 +160,8 @@ var tooltip = {
     }
 }
                 
-var canvas = document.getElementById("pong")
-
+var canvas = $("<canvas width='" + CANVAS_WIDTH + "' height='" + CANVAS_HEIGHT + "'></canvas");
 var context = canvas.get(0).getContext('2d');   
-
 canvas.appendTo('body');
 
 setInterval(function() {
