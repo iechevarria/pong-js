@@ -200,6 +200,9 @@ function draw() {
     
     context.fillStyle = "#fff";
     context.fillRect(400, 0, 2, CANVAS_HEIGHT)
+    context.fillRect(0, 0, CANVAS_WIDTH, 2)
+    context.fillRect(0, 598, CANVAS_WIDTH, 2)
+    
 
     leftPaddle.draw();
     rightPaddle.draw();
