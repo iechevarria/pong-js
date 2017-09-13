@@ -3,6 +3,10 @@ var CANVAS_HEIGHT = 600
 var FPS = 60
 var pi = 3.14159
 
+var canvas = $("<canvas width='" + CANVAS_WIDTH + "' height='" + CANVAS_HEIGHT + "'></canvas")
+var context = canvas.get(0).getContext('2d')
+canvas.appendTo('body')
+
 var leftPaddle = {
   color: '#fff',
   x: 5,
@@ -156,10 +160,6 @@ var tooltip = {
     }
   }
 }
-
-var canvas = $("<canvas width='" + CANVAS_WIDTH + "' height='" + CANVAS_HEIGHT + "'></canvas")
-var context = canvas.get(0).getContext('2d')
-canvas.appendTo('body')
 
 setInterval(function () {
   update()
