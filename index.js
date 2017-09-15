@@ -2,10 +2,13 @@ var CANVAS_WIDTH = 800
 var CANVAS_HEIGHT = 600
 var FPS = 60
 var pi = 3.14159
+var paused = false
 
-var canvas = $("<canvas width='" + CANVAS_WIDTH + "' height='" + CANVAS_HEIGHT + "'></canvas")
-var context = canvas.get(0).getContext('2d')
-canvas.appendTo('body')
+var downPressed = false
+var upPressed = false
+
+var canvas = document.getElementById('canvas')
+var context = canvas.getContext('2d')
 
 var leftPaddle = {
   color: '#fff',
@@ -44,7 +47,8 @@ var rightPaddle = {
           ball.x < CANVAS_WIDTH) {
         this.y -= 4
       }
-      this.y = this.y.clamp(5, CANVAS_HEIGHT - this.height - 5)
+
+      this.y = Math.min(Math.max(this.y, 5), CANVAS_HEIGHT - this.height - 5)
     } else {
       if (ball.y + 10 > this.y + this.height / 2) {
         this.y += 4
@@ -153,38 +157,58 @@ var tooltip = {
   draw: function () {
     if (this.show) {
       context.font = '14px Courier'
-      context.fillText('space: serve', 530, 450)
-      context.fillText('   up: move up', 530, 470)
-      context.fillText(' down: move down', 530, 490)
-      context.fillText('    h: toggle help', 530, 510)
+      context.fillText('space: serve', 25, 30)
+      context.fillText('   up: move up', 25, 50)
+      context.fillText(' down: move down', 25, 70)
+      context.fillText('    p: toggle play/pause', 25, 90)
+      context.fillText('    h: toggle help', 25, 110)
     }
   }
 }
 
 setInterval(function () {
-  update()
-  draw()
+  if (!paused) {
+    update()
+    draw()
+  }
 }, 1000 / FPS)
 
 function update () {
-  if (keydown.h) {
-    tooltip.toggle()
-  }
-
-  if (keydown.down) {
+  if (downPressed) {
     leftPaddle.y += 5
   }
 
-  if (keydown.up) {
+  if (upPressed) {
     leftPaddle.y -= 5
   }
 
-  leftPaddle.y = leftPaddle.y.clamp(5, CANVAS_HEIGHT - leftPaddle.height - 5)
+  leftPaddle.y = Math.min(Math.max(leftPaddle.y, 5), CANVAS_HEIGHT - leftPaddle.height - 5)
   rightPaddle.update()
   ball.update()
+}
 
-  if (keydown.space) {
+window.onkeydown = function (e) {
+  var key = e.keyCode ? e.keyCode : e.which
+  if (key === 38) {
+    upPressed = true
+  } else if (key === 40) {
+    downPressed = true
+  } else if (key === 32) {
     ball.serve()
+  }
+}
+
+window.onkeyup = function (e) {
+  var key = e.keyCode ? e.keyCode : e.which
+  if (key === 72) {
+    tooltip.toggle()
+    draw()
+  } else if (key === 80) {
+    paused = !paused
+  } else if (key === 38) {
+    upPressed = false
+  } else if (key === 40) {
+    downPressed = false
   }
 }
 
