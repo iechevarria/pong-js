@@ -1,6 +1,6 @@
 # pong-js
 JavaScript implementation of <a href=https://en.wikipedia.org/wiki/Pong>Pong</a>.
-Check it out at <a href='http://echevarria.io/projects/pong/'>echevarria.io</a>.
+Check it out at <a href='http://echevarria.io/code/pong/'>echevarria.io</a>.
 
 ## Controls
 <ul>
